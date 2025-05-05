@@ -1,0 +1,8 @@
+node_modules
+.next
+.npm
+package-lock.json
+node_modules
+package-lock.json
+.next
+.npm

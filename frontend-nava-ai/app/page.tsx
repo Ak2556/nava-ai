@@ -25,7 +25,8 @@ export default function Home() {
     return () => clearTimeout(timeout);
   }, [memory.length, loading]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     if (!prompt.trim()) return;
     setLoading(true);
     try {
@@ -37,7 +38,7 @@ export default function Home() {
     } catch (err) {
       const errorEntry = { prompt, response: "❌ Error contacting backend." };
       setMemory((prev) => [...prev.slice(-19), errorEntry]);
-      console.error(err);
+      console.error("Submission error:", err);
     } finally {
       setLoading(false);
     }
@@ -101,18 +102,32 @@ export default function Home() {
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                   e.preventDefault();
-                  handleSubmit();
+                  handleSubmit(e);
                 }
               }}
               disabled={loading}
             />
             <div className="flex gap-2 mt-2 sm:mt-0">
               <button
-                onClick={handleSubmit}
+                onClick={(e) => handleSubmit(e)}
                 disabled={loading || !prompt.trim()}
-                className="px-6 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white font-bold transition disabled:opacity-50 shadow"
+                className={`px-6 py-2 rounded-md transition-all duration-200 font-bold shadow text-white ${
+                  loading || !prompt.trim()
+                    ? 'bg-indigo-400 cursor-not-allowed'
+                    : 'bg-indigo-600 hover:bg-indigo-700 hover:scale-[1.03]'
+                }`}
               >
-                {loading ? "Thinking..." : "Send"}
+                {loading ? (
+                  <div className="flex items-center gap-2">
+                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    Thinking...
+                  </div>
+                ) : (
+                  'Send'
+                )}
               </button>
               <button
                 onClick={() => setMemory([])}
