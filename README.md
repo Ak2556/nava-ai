@@ -3,7 +3,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/CI-passing-brightgreen?style=flat-square" alt="CI Status" />
   <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License" />
-  <img src="https://img.shields.io/badge/docker-ready-blue?style=flat-square" alt="Docker" />
+  <a href="#quickstart"><img src="https://img.shields.io/badge/docker-ready-blue?style=flat-square" alt="Docker" /></a>
 </p>
 
 <p align="center">
@@ -50,7 +50,7 @@ Nava AI helps founders ideate, validate, and organize startup ideas using advanc
 sequenceDiagram
     participant User
     participant Frontend as Next.js Frontend
-    participant Backend as FastAPI Backend
+    participant Backend as FastAPI Backend (main.py)
     participant Chroma as ChromaDB
     participant OpenRouter as OpenRouter AI
 
@@ -86,14 +86,15 @@ docker compose up --build
 
 2. Backend Setup
     ```bash
+    cd backend
     pip install -r requirements.txt
     cp .env.example .env  # Add your OpenRouter API key
-    uvicorn backend.app.main:app --reload
+    uvicorn main:app --reload
     ```
 
 3. Frontend Setup
     ```bash
-    cd apps/frontend
+    cd frontend-nava-ai
     npm install
     npm run dev
     ```
