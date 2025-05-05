@@ -1,7 +1,7 @@
 # Nava AI
 
 <p align="center">
-  <img src="https://img.shields.io/badge/CI-passing-brightgreen?style=flat-square" alt="CI Status" />
+  <a href="https://github.com/Ak2556/nava-ai/actions"><img src="https://img.shields.io/badge/CI-passing-brightgreen?style=flat-square" alt="CI Status" /></a>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License" />
   <a href="#quickstart"><img src="https://img.shields.io/badge/docker-ready-blue?style=flat-square" alt="Docker" /></a>
 </p>
