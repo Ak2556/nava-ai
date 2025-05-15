@@ -1,6 +1,7 @@
 
 
 from fastapi import APIRouter, HTTPException
+from chromadb import Client
 from pydantic import BaseModel
 from app.services.chroma_service import add_memory, query_memory, wipe_memory
 
@@ -36,5 +37,15 @@ def wipe_memory_route():
     try:
         wipe_memory()
         return {"status": "success", "message": "Memory wiped"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/user/{user_id}")
+def get_user_memory(user_id: str):
+    try:
+        client = Client()
+        collection = client.get_or_create_collection(name="nava_memory")
+        results = collection.get(where={"user_id": user_id})
+        return {"results": results}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

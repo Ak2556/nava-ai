@@ -1,0 +1,240 @@
+/* Reset box sizing and set base font size */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  font-size: 16px;
+  color-scheme: light dark;
+  scroll-behavior: smooth;
+}
+:root {
+  --color-bg: #fafafa;
+  --color-panel: rgba(255,255,255,0.6);
+  --color-accent: #ff4b5c; /* subtle red accent */
+  --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+}
+/* Dark mode color variables */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #18181b;
+    --color-panel: rgba(30, 30, 35, 0.6);
+    --color-accent: #ff4b5c;
+  }
+  body {
+    background-color: var(--color-bg);
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.3);
+  }
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg);
+  font-family: var(--font-ui);
+  color: #000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 16px 16px;
+  transition: background-color 0.3s ease, background-size 0.3s ease;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities; 
+/* Custom scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,0.2) transparent;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0,0,0,0.4);
+}
+
+@font-face {
+  font-family: 'dot-matrix';
+  src: url('/fonts/dot-matrix.ttf') format('truetype');
+  font-display: swap;
+}
+
+@keyframes blinkDots {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.animate-blinkDots {
+  animation: blinkDots 2s infinite ease-in-out;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(4px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.animate-slideIn {
+  animation: slideIn 0.3s ease-out both;
+}
+
+@keyframes dots {
+  0% { content: "."; }
+  33% { content: ".."; }
+  66% { content: "..."; }
+}
+.animate-dots::after {
+  display: inline-block;
+  animation: dots 1s steps(3, end) infinite;
+  content: '';
+}
+
+/* =====================
+   UI ULTIMATE ENHANCEMENT LAYER
+   ===================== */
+
+/* Pulse glow on focus or hover */
+@keyframes subtlePulse {
+  0% {
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0);
+  }
+  50% {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.08);
+  }
+  100% {
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0);
+  }
+}
+.animate-subtlePulse {
+  animation: subtlePulse 2.4s ease-in-out infinite;
+}
+
+/* Bubble pop on message send */
+@keyframes messagePop {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.animate-bubblePop {
+  animation: messagePop 0.3s ease-out;
+}
+
+/* Terminal-style typing */
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+.animate-typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typewriter 2.5s steps(30, end);
+}
+
+/* Shimmer effect (for placeholder typing/loading) */
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+.shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.1) 100%);
+  background-size: 800px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Glass panel utility for Apple-style frosted effect */
+.apple-glass {
+  background: transparent !important;
+  backdrop-filter: none;
+  border-radius: 16px;
+}
+
+/* Ensure popup/chat container inherits transparency */
+.apple-glass,
+.chat-container,
+.panel {
+  background: transparent !important;
+}
+
+/* Remove any dark overlay in layout */
+body > div.dark-overlay {
+  background: transparent !important;
+}
+
+/* Accent underline for headings (MKBHD flair) */
+h1, .heading {
+  position: relative;
+}
+h1::after, .heading::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%);
+  height: 3px;
+  width: 40px;
+  background: var(--color-accent);
+  border-radius: 2px;
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Tighter, minimal cursor styles */
+button, textarea, input {
+  cursor: pointer;
+  outline: none;
+}
+button:focus, textarea:focus, input:focus {
+  box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+/* Improved focus styles */
+:focus-visible {
+  outline: 2px dashed var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Ensure dot-matrix text blends with UI */
+.dot-text {
+  letter-spacing: 0.2em;
+  font-family: 'dot-matrix', var(--font-ui);
+  color: #111;
+}
