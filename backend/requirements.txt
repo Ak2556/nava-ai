@@ -5,3 +5,4 @@ tenacity
 python-dotenv
 chromadb
 sqlalchemy>=2.0
+python-jose[cryptography]>=3.3.0
