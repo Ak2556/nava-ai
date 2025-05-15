@@ -4,3 +4,4 @@ httpx
 tenacity
 python-dotenv
 chromadb
+sqlalchemy>=2.0
