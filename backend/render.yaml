@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: nava-backend
+    runtime: python
+    plan: free
+    branch: main
+    region: singapore
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+    envVars:
+      - key: SECRET_KEY
+        value: 0b124a1d032c4be89a7a6593d97a48e2e059e1c183f84256b72a4ad564ff9c20
+      - key: OPENROUTER_API_KEY
+        value: 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
+
+  - type: cron
+    name: nava-frontend
+    runtime: static
+    plan: free
+    branch: main
+    region: singapore
+    schedule: "0 0 * * *"
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NEXT_PUBLIC_BACKEND_URL
+        value: https://nava-backend.onrender.com
