@@ -7,7 +7,7 @@ services:
     runtime: python
     plan: free
     branch: main
-    region: singapore     # only web services may have a region
+    region: singapore          # only web services may have a region
     rootDirectory: backend
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
@@ -18,15 +18,16 @@ services:
         value: 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
 
   # ────────────────────────────────────────────────────────────
-  # 2) Next.js frontend (static export)
+  # 2) Next.js frontend (static site)
   # ────────────────────────────────────────────────────────────
-  - type: static
+  - type: web                  # static sites are still type: "web"
     name: nava-frontend
+    runtime: static            # runtime "static" tells Render it’s a CDN‐backed site
+    plan: free                 # free tier applies to web/static
     branch: main
     rootDirectory: frontend
     buildCommand: npm install && npm run build && npm run export
-    # Tell Render where your static files live after `next export`
-    staticPublishPath: out
+    staticPublishPath: out     # Next.js default `next export` output
     envVars:
       - key: NEXT_PUBLIC_BACKEND_URL
         value: https://nava-backend.onrender.com
