@@ -1,4 +1,4 @@
-app = "backend-little-fire-602"
+app = "nava-backend"   # your Fly app name
 
 [build]
   builder = "paketobuildpacks/builder:base"
@@ -8,7 +8,8 @@ app = "backend-little-fire-602"
   OPENROUTER_API_KEY = "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"
 
 [[services]]
-process = "start"
+  # directly run your FastAPI entrypoint
+  command = "uvicorn main:app --host 0.0.0.0 --port 10000"
   internal_port = 10000
   protocol = "tcp"
 
@@ -24,6 +25,3 @@ process = "start"
   [[services.ports]]
     handlers = ["tls", "http"]
     port = 443
-
-[processes]
-  start = "uvicorn main:app --host 0.0.0.0 --port 10000"
