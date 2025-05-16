@@ -5,7 +5,7 @@ services:
   - type: web
     name: nava-backend
     runtime: python
-    plan: free
+    plan: starter           # “starter” replaces “free” for web services
     branch: main
     region: singapore       # only web services may specify a region
     rootDir: backend
@@ -22,12 +22,12 @@ services:
   # ────────────────────────────────────────────────────────────
   - type: web
     name: nava-frontend
-    runtime: static         # tells Render to serve this as a CDN-backed static site
-    plan: free
+    runtime: static
+    plan: starter           # use “starter” here as well
     branch: main
     rootDir: frontend
     buildCommand: npm install && npm run build && npm run export
-    staticPublishPath: out   # output dir created by `next export`
+    staticPublishPath: out
     envVars:
       - key: NEXT_PUBLIC_BACKEND_URL
         value: https://nava-backend.onrender.com
