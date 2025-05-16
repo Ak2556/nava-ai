@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Menu } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/solid';
+import Link from 'next/link';
 
 interface NavbarProps {
   user: { username?: string; email?: string } | null;
@@ -43,9 +44,9 @@ export default function Navbar({ user, onLogin, onLogout }: NavbarProps) {
       </a>
       <div className="max-w-6xl mx-auto flex justify-between items-center py-3 px-4 sm:px-6 lg:px-8">
         <h1>
-          <a href="/" className="text-lg sm:text-xl font-bold tracking-tight text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 hover:underline">
+          <Link href="/" className="text-lg sm:text-xl font-bold tracking-tight text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 hover:underline">
             Nava AI
-          </a>
+          </Link>
         </h1>
         <div className="flex items-center">
           <Menu as="div" className="relative">
